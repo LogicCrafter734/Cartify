@@ -1,52 +1,288 @@
-# Cartify eCommerce Platform 🛒✨
+# 🛒 Cartify
 
-Welcome to **Cartify**, my first major milestone project as a full-stack developer! Built using the **MERN Stack** (MongoDB, Express, React, Node.js) and managed with **Redux Toolkit**, this application represents my best effort to learn, build, and deploy a full-featured, secure e-commerce application from scratch.
+# MERN eCommerce Platform
 
-This project represents not just code, but hours of debugging, learning modern state management, understanding server architecture, and breaking through common development bottlenecks.
-
----
-
-## 🚀 Key Features Implemented
-
-* **Complete Shopping Pipeline:** Interactive product detail views, dynamic quantities, local-storage-backed shopping cart states, and structured multi-step checkout processes (Shipping → Payment → Place Order).
-* **Secure Cookie Authentication:** Implemented JSON Web Token (JWT) storage utilizing secure `HttpOnly` browser cookies to manage sessions safely.
-* **State-of-the-Art State Management:** Integrated **Redux Toolkit RTK Query** to handle clean asynchronous server interactions, data pre-fetching, and cache validation hooks.
-* **Full Admin Suite:** Robust management dashboards for managing products, auditing global user records, and updating individual fulfillment delivery states.
-* **External Payment Systems:** Native integration with the PayPal JavaScript SDK for secure transaction testing.
-* **Product Discovery Slices:** Custom server-side database pagination limits, full-text keyword regex searching, and an elegant "Top Rated" product showcase carousel.
+A modern full-stack eCommerce application built with the **MERN Stack**. Cartify provides a complete online shopping experience with secure authentication, product management, shopping cart, order management, PayPal payments, and an admin dashboard.
 
 ---
 
-## 🛠️ The Tech Stack
+## 🚀 Project Overview
 
-* **Frontend:** React.js (v18), React Bootstrap (UI Framework), Redux Toolkit (RTK Query), React Router DOM.
-* **Backend:** Node.js, Express.js, Multer (Local Media Upload Pipeline).
-* **Database:** MongoDB Atlas via the Mongoose ODM framework.
-* **Payment APIs:** PayPal Sandbox Environment.
+Cartify is a feature-rich eCommerce platform where customers can browse products, search items, add products to their cart, place orders, and make secure online payments. Administrators can manage products, users, and customer orders through a dedicated admin panel.
 
 ---
 
-## 🧠 Lessons Learned & Challenges Overcome
+## ⚙️ Tech Stack
 
-Building this project taught me that engineering is 20% writing code and 80% troubleshooting. Some of my biggest learning breakthroughs included:
-
-1.  **The HTTP-Only Cookie Trap (`credentials: 'include'`):** I spent a long time diagnosing why users couldn't stay signed in. I discovered that when using strict HTTP-Only cookies, browsers automatically block them from traveling across local development ports unless `credentials: 'include'` is explicitly declared inside the RTK query wrapper.
-2.  **Resolving `EADDRINUSE` Port Conflicts on macOS:** When setting up my local proxy environment on port `5000`, the server repeatedly crashed. I learned that macOS uses port 5000 natively for its AirPlay Receiver service. Learning to systematically locate active system threads, kill ghost processes, and smoothly redirect my application's pipeline proxy bridge to port `5001` was a massive lesson in system infrastructure.
-3.  **Client/Server Price Validation (Security First):** I learned never to trust prices submitted directly by the client browser code. My backend order controller intercepts the cart items array, queries the actual values straight from the MongoDB collection, and processes calculations securely on the server side to prevent request manipulation.
+| Layer | Technology |
+|--------|------------|
+| Frontend | React.js |
+| Backend | Node.js + Express.js |
+| Database | MongoDB |
+| State Management | Redux Toolkit + RTK Query |
+| Authentication | JWT + HTTP Only Cookies |
+| Payments | PayPal |
+| Styling | React Bootstrap / Bootstrap |
 
 ---
 
-## 🔧 Installation and Local Setup
+# ✨ Features
 
-### 1. Environment Configuration
-Create a `.env` file in your **backend root folder** and populate it with your environment keys:
+## ✅ User Features
+
+- User Registration & Login
+- Secure JWT Authentication
+- User Profile Management
+- Product Search
+- Product Pagination
+- Product Reviews & Ratings
+- Top Rated Products Carousel
+- Shopping Cart
+- Shipping Address Management
+- Checkout Process
+- PayPal Payment Integration
+- Order History
+- Responsive Design
+
+---
+
+## ✅ Admin Features
+
+- Admin Dashboard
+- Product Management (CRUD)
+- User Management
+- Order Management
+- Mark Orders as Delivered
+- Upload Product Images
+
+---
+
+## 📁 Folder Structure
+
+```
+project-root/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── screens/
+│   │   ├── slices/
+│   │   ├── utils/
+│   │   ├── assets/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── package.json
+│
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   ├── data/
+│   ├── server.js
+│   └── package.json
+│
+├── uploads/
+├── README.md
+└── package.json
+```
+
+---
+
+# ⚙️ Setup Instructions
+
+## Prerequisites
+
+- Node.js (v16 or above)
+- MongoDB (Local or Atlas)
+- npm
+
+---
+
+## 📥 Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/cartify.git
+
+cd cartify
+```
+
+---
+
+### 2️⃣ Install Backend Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Install Frontend Dependencies
+
+```bash
+cd frontend
+
+npm install
+```
+
+---
+
+### 4️⃣ Configure Environment Variables
+
+Create a `.env` file inside the root directory.
 
 ```env
-PORT=5001
 NODE_ENV=development
-MONGO_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_custom_secure_jwt_secret_string
-PAGINATION_LIMIT=3
 
-# PayPal Sandbox Credentials
-PAYPAL_CLIENT_ID=your_paypal_sandbox_client_id
+PORT=5000
+
+MONGO_URI=Your MongoDB Connection String
+
+JWT_SECRET=YourSecretKey
+
+PAYPAL_CLIENT_ID=YourPayPalClientID
+
+PAGINATION_LIMIT=8
+```
+
+---
+
+## ▶️ Running the Application
+
+### Run Frontend & Backend Together
+
+```bash
+npm run dev
+```
+
+### Run Backend Only
+
+```bash
+npm run server
+```
+
+### Build Frontend
+
+```bash
+cd frontend
+
+npm run build
+```
+
+---
+
+# 📡 API Documentation
+
+## Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/users/login` | Login User |
+| POST | `/api/users` | Register User |
+| POST | `/api/users/logout` | Logout User |
+| GET | `/api/users/profile` | Get User Profile |
+| PUT | `/api/users/profile` | Update Profile |
+
+---
+
+## Products
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | Get All Products |
+| GET | `/api/products/:id` | Get Product Details |
+| POST | `/api/products` | Create Product (Admin) |
+| PUT | `/api/products/:id` | Update Product |
+| DELETE | `/api/products/:id` | Delete Product |
+
+---
+
+## Orders
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/orders` | Create Order |
+| GET | `/api/orders/:id` | Get Order Details |
+| PUT | `/api/orders/:id/pay` | Update Payment Status |
+| PUT | `/api/orders/:id/deliver` | Mark Order Delivered |
+
+---
+
+# 💳 Payment Integration
+
+Cartify supports secure online payments using **PayPal Checkout**.
+
+Features include:
+
+- Secure PayPal Transactions
+- Order Payment Status
+- Payment Verification
+
+---
+
+# 🌐 Deployment Guide
+
+## Deploy Backend
+
+You can deploy the backend using:
+
+- Render
+- Railway
+- VPS
+- Docker
+
+Ensure:
+
+- MongoDB Atlas URI configured
+- JWT Secret configured
+- PayPal Client ID configured
+- Environment Variables added
+
+---
+
+## Deploy Frontend
+
+Deploy using:
+
+- Vercel
+- Netlify
+
+Set the production API URL in your frontend configuration.
+
+---
+
+# 🌍 MongoDB Atlas
+
+1. Create a MongoDB Atlas Cluster
+2. Create a Database User
+3. Whitelist your IP Address
+4. Copy the Connection String
+5. Replace `MONGO_URI` inside `.env`
+
+---
+
+
+# ✅ Project Status
+
+- ✔ User Authentication
+- ✔ Product Listing
+- ✔ Product Search
+- ✔ Product Reviews
+- ✔ Shopping Cart
+- ✔ Checkout Process
+- ✔ PayPal Integration
+- ✔ Order Management
+- ✔ Admin Dashboard
+- ✔ User Management
+- ✔ Product Management
+- ✔ Responsive UI
+
+---
+
+# 📄 License
+
+MIT License © 2026 Kanchan Sain
